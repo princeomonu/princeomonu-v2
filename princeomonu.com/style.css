@@ -1,0 +1,383 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+:root {
+    /* Theme variables will be set by JavaScript */
+    --color-background: #0a192f;
+    --color-light-background: #112240;
+    --color-lightest-background: #233554;
+    --color-text: #8892b0;
+    --color-light-text: #a8b2d1;
+    --color-lightest-text: #ccd6f6;
+    --color-white: #e6f1ff;
+    --color-accent: #64ffda;
+}
+
+
+/* Add smooth transitions for theme changes */
+
+*,
+*::before,
+*::after {
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Background-specific transitions */
+
+body,
+.bg-navy,
+.bg-light-navy,
+.bg-lightest-navy,
+[class*='bg-'] {
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Elements that shouldn't transition */
+
+.cursor-glow,
+.typewriter-cursor,
+.fade-in-section,
+.fade-in-item,
+.nav-link::after,
+.project-tech,
+.scroll-to-top {
+    transition: none;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    position: relative;
+    overflow-x: hidden;
+}
+
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    visibility: hidden;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, visibility, transform;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+}
+
+.fade-in-section .fade-in-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: var(--delay, 0ms);
+}
+
+.fade-in-section.is-visible .fade-in-item {
+    opacity: 1;
+    transform: none;
+}
+
+.cursor-glow {
+    pointer-events: none;
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(100, 255, 218, 0.08) 0%, rgba(100, 255, 218, 0.02) 40%, rgba(100, 255, 218, 0) 80%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+}
+
+@media (hover: hover) {
+    .cursor-glow {
+        opacity: 1;
+    }
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: var(--color-accent);
+    margin-left: 2px;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+/* Add project card animations */
+
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    background-color: var(--color-light-background);
+}
+
+.project-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -15px rgba(var(--color-accent), 0.1);
+}
+
+.project-card:hover .project-icon {
+    transform: rotate(-10deg);
+}
+
+.project-card:hover .project-title {
+    color: var(--color-accent);
+}
+
+.project-tech {
+    transition: all 0.2s ease;
+}
+
+.project-tech:hover {
+    transform: translateY(-2px);
+    color: var(--color-accent);
+}
+
+.featured-project {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: var(--delay, 0ms);
+}
+
+.featured-project.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: calc(2rem + 50px);
+    background: var(--color-light-background);
+    color: var(--color-accent);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--color-accent);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+
+@media (max-width: 1200px) {
+    .scroll-to-top {
+        right: 2rem;
+    }
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    background: rgba(var(--color-accent), 0.1);
+    transform: translateY(-3px);
+}
+
+
+/* Mobile Menu Styles */
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99999;
+}
+
+.mobile-menu.open {
+    pointer-events: auto;
+}
+
+
+/* Backdrop */
+
+.mobile-menu-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    z-index: 99998;
+}
+
+.mobile-menu.open .mobile-menu-backdrop {
+    opacity: 1;
+}
+
+
+/* Drawer */
+
+.mobile-menu-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(75vw, 400px);
+    height: 100%;
+    background: var(--color-light-background);
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-shadow: -10px 0 30px -15px rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+}
+
+.mobile-menu.open .mobile-menu-drawer {
+    transform: translateX(0);
+}
+
+
+/* Menu Items */
+
+.mobile-menu-nav {
+    padding: 5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.mobile-menu-item {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-lightest-text);
+}
+
+.mobile-menu-item:hover {
+    background-color: var(--color-lightest-background);
+}
+
+.mobile-menu-item .number {
+    color: var(--color-accent);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875rem;
+    min-width: 1.5rem;
+}
+
+.mobile-menu-item .text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
+/* Close Button */
+
+.mobile-menu-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.5rem;
+    color: var(--color-accent);
+    border-radius: 0.375rem;
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.mobile-menu-close:hover {
+    background-color: var(--color-lightest-background);
+}
+
+
+/* Resume Button */
+
+.mobile-menu-resume {
+    margin: 1rem 2.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--color-accent);
+    border-radius: 0.5rem;
+    color: var(--color-accent);
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-menu-resume:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+}
+
+
+/* Theme Switcher and Resume Button Styles */
+
+.theme-switcher-button {
+    border: 2px solid var(--color-accent);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.theme-switcher-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-background) !important;
+}
+
+.theme-switcher-button:hover svg {
+    stroke: var(--color-background);
+}
+
+.theme-switcher-button:hover .mobile-theme-name,
+.theme-switcher-button:hover .desktop-theme-name {
+    color: var(--color-background);
+}
+
+.resume-button {
+    border: 2px solid var(--color-accent);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.resume-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-background) !important;
+}
