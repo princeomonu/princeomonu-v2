@@ -56,12 +56,19 @@
     <nav class="fixed w-full bg-navy/90 backdrop-blur-sm z-[100] px-6 py-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="#" class="text-green font-mono text-xl relative z-[100]">P</a>
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-green hover:text-green/80 transition-colors p-2 relative z-[100]" id="menuButton" aria-label="Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
+            <!-- Mobile Menu Buttons -->
+            <div class="md:hidden flex items-center gap-4 relative z-[100]">
+                <button id="mobile-header-theme-switcher" class="text-green hover:text-green/80 transition-colors p-2" aria-label="Switch Theme" data-current-theme="navy">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                    </svg>
+                </button>
+                <button class="text-green hover:text-green/80 transition-colors p-2" id="menuButton" aria-label="Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#about" class="nav-link text-lightest-slate hover:text-green"><span class="text-green font-mono">01.</span> About</a>
                 <a href="#experience" class="nav-link text-lightest-slate hover:text-green"><span class="text-green font-mono">02.</span> Experience</a>

@@ -204,7 +204,7 @@ window.addEventListener('scroll', toggleScrollButton);
 
 // Theme switcher functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const themeSwitchers = ['theme-switcher', 'mobile-theme-switcher'];
+    const themeSwitchers = ['theme-switcher', 'mobile-theme-switcher', 'mobile-header-theme-switcher'];
 
     // Function to update placeholder images
     function updatePlaceholderImages(theme) {
