@@ -5,12 +5,9 @@ const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
 
 function toggleMenu() {
-    const isOpen = mobileMenu.classList.contains('translate-x-0');
-    mobileMenu.classList.toggle('translate-x-0');
+    const isOpen = mobileMenu.classList.contains('open');
+    mobileMenu.classList.toggle('open');
     document.body.style.overflow = isOpen ? '' : 'hidden';
-    // Hide/show menu button
-    menuButton.style.opacity = isOpen ? '1' : '0';
-    menuButton.style.visibility = isOpen ? 'visible' : 'hidden';
 }
 
 menuButton.addEventListener('click', toggleMenu);
@@ -18,17 +15,19 @@ closeButton.addEventListener('click', toggleMenu);
 
 // Close menu when clicking a link
 Array.from(mobileMenuLinks).forEach(link => {
-    link.addEventListener('click', () => {
-        toggleMenu();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-            setTimeout(() => {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }, 300);
-        }
-    });
+    if (link.getAttribute('href').startsWith('#')) {
+        link.addEventListener('click', () => {
+            toggleMenu();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                setTimeout(() => {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }, 300);
+            }
+        });
+    }
 });
 
 // Smooth scroll for navigation links
@@ -205,38 +204,12 @@ window.addEventListener('scroll', toggleScrollButton);
 // Theme switcher functionality
 document.addEventListener('DOMContentLoaded', () => {
     const themeSwitchers = ['theme-switcher', 'mobile-theme-switcher', 'mobile-header-theme-switcher'];
+    const initialTheme = localStorage.getItem('selected-theme') || 'navy';
 
-    // Function to update placeholder images
-    function updatePlaceholderImages(theme) {
-        const placeholderImages = document.querySelectorAll('img[src*="placehold.co"]');
-        placeholderImages.forEach(img => {
-            // Create new image to preload
-            const newImage = new Image();
-            const bgColor = theme.colors.background.replace('#', '');
-            const accentColor = theme.colors.accent.replace('#', '');
-            const projectName = img.src.split('?text=')[1];
-            const newSrc = `https://placehold.co/600x400/${bgColor}/${accentColor}?text=${projectName}`;
-
-            // Add fade out class
-            img.style.opacity = '0';
-
-            // When new image is loaded, update src and fade in
-            newImage.onload = () => {
-                img.src = newSrc;
-                img.style.opacity = '1';
-            };
-            newImage.src = newSrc;
-        });
-    }
-
-    // Add CSS for smooth image transitions
-    const style = document.createElement('style');
-    style.textContent = `
-        img[src*="placehold.co"] {
-            transition: opacity 0.3s ease;
-        }
-    `;
-    document.head.appendChild(style);
+    // Set initial theme names
+    document.querySelectorAll('.mobile-theme-name, .desktop-theme-name, .mobile-menu-theme-name').forEach(el => {
+        el.textContent = initialTheme;
+    });
 
     themeSwitchers.forEach(id => {
         const switcher = document.getElementById(id);
@@ -250,17 +223,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 const theme = window.themeManager.themes[nextTheme];
                 updatePlaceholderImages(theme);
 
-                // Update all theme switchers
+                // Update all theme switchers and theme names
                 themeSwitchers.forEach(id => {
                     const s = document.getElementById(id);
                     if (s) s.dataset.currentTheme = nextTheme;
+                });
+
+                // Update theme names
+                document.querySelectorAll('.mobile-theme-name, .desktop-theme-name, .mobile-menu-theme-name').forEach(el => {
+                    el.textContent = nextTheme;
                 });
             });
         }
     });
 
     // Update placeholder images on initial load
-    const initialTheme = localStorage.getItem('selected-theme') || 'navy';
     const theme = window.themeManager.themes[initialTheme];
     updatePlaceholderImages(theme);
 });
+
+// Function to update placeholder images
+function updatePlaceholderImages(theme) {
+    const placeholderImages = document.querySelectorAll('img[src*="placehold.co"]');
+    placeholderImages.forEach(img => {
+        // Create new image to preload
+        const newImage = new Image();
+        const bgColor = theme.colors.background.replace('#', '');
+        const accentColor = theme.colors.accent.replace('#', '');
+        const projectName = img.src.split('?text=')[1];
+        const newSrc = `https://placehold.co/600x400/${bgColor}/${accentColor}?text=${projectName}`;
+
+        // Add fade out class
+        img.style.opacity = '0';
+
+        // When new image is loaded, update src and fade in
+        newImage.onload = () => {
+            img.src = newSrc;
+            img.style.opacity = '1';
+        };
+        newImage.src = newSrc;
+    });
+}

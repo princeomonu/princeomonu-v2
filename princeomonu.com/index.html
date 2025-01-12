@@ -53,12 +53,50 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
     </button>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu md:hidden">
+        <!-- Backdrop -->
+        <div class="mobile-menu-backdrop" onclick="toggleMenu()"></div>
+        <!-- Drawer -->
+        <div class="mobile-menu-drawer">
+            <button class="mobile-menu-close" id="closeButton" aria-label="Close Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <nav class="mobile-menu-nav">
+                <a href="#about" class="mobile-menu-item">
+                    <span class="number">01.</span>
+                    <span class="text">About</span>
+                </a>
+                <a href="#experience" class="mobile-menu-item">
+                    <span class="number">02.</span>
+                    <span class="text">Experience</span>
+                </a>
+                <a href="#projects" class="mobile-menu-item">
+                    <span class="number">03.</span>
+                    <span class="text">Projects</span>
+                </a>
+                <a href="#contact" class="mobile-menu-item">
+                    <span class="number">04.</span>
+                    <span class="text">Contact</span>
+                </a>
+                <button id="mobile-theme-switcher" class="mobile-menu-item text-left" aria-label="Switch Theme" data-current-theme="navy">
+                    <span class="number">05.</span>
+                    <span class="text">Switch Theme</span>
+                </button>
+            </nav>
+            <a href="/resume.pdf" class="mobile-menu-resume">Resume</a>
+        </div>
+    </div>
+
     <nav class="fixed w-full bg-navy/90 backdrop-blur-sm z-[100] px-6 py-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="#" class="text-green font-mono text-xl relative z-[100]">P</a>
             <!-- Mobile Menu Buttons -->
             <div class="md:hidden flex items-center gap-4 relative z-[100]">
-                <button id="mobile-header-theme-switcher" class="text-green hover:text-green/80 transition-colors p-2" aria-label="Switch Theme" data-current-theme="navy">
+                <button id="mobile-header-theme-switcher" class="theme-switcher-button text-green p-2 flex items-center gap-1" aria-label="Switch Theme" data-current-theme="navy">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                     </svg>
@@ -74,51 +112,12 @@
                 <a href="#experience" class="nav-link text-lightest-slate hover:text-green"><span class="text-green font-mono">02.</span> Experience</a>
                 <a href="#projects" class="nav-link text-lightest-slate hover:text-green"><span class="text-green font-mono">03.</span> Projects</a>
                 <a href="#contact" class="nav-link text-lightest-slate hover:text-green"><span class="text-green font-mono">04.</span> Contact</a>
-                <button id="theme-switcher" class="text-green hover:text-green/80 transition-colors p-2" aria-label="Switch Theme" data-current-theme="navy">
+                <button id="theme-switcher" class="theme-switcher-button text-green p-2 flex items-center gap-1" aria-label="Switch Theme" data-current-theme="navy">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                     </svg>
                 </button>
-                <a href="/resume.pdf" class="border border-green text-green px-4 py-2 rounded hover:bg-green/10 transition-colors">Resume</a>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="fixed inset-0 transform translate-x-full transition-all duration-300 ease-in-out md:hidden">
-            <!-- Backdrop -->
-            <div class="absolute inset-0 bg-navy/90 backdrop-blur-sm" onclick="toggleMenu()"></div>
-            <!-- Sidebar -->
-            <div class="absolute right-0 h-full w-[min(75vw,400px)] bg-light-navy shadow-lg flex flex-col justify-start pt-24 z-[1000]">
-                <nav class="flex flex-col items-start bg-lightest-navy/80 rounded-lg mx-4 p-6">
-                    <div class="space-y-6 w-full">
-                        <a href="#about" class="text-lightest-slate hover:text-green text-xl group transition-all w-full p-3 rounded hover:bg-light-navy block">
-                            <span class="text-green font-mono block text-base mb-2 group-hover:translate-x-2 transition-transform">01.</span>
-                            <span class="group-hover:translate-x-2 transition-transform inline-block">About</span>
-                        </a>
-                        <a href="#experience" class="text-lightest-slate hover:text-green text-xl group transition-all w-full p-3 rounded hover:bg-light-navy block">
-                            <span class="text-green font-mono block text-base mb-2 group-hover:translate-x-2 transition-transform">02.</span>
-                            <span class="group-hover:translate-x-2 transition-transform inline-block">Experience</span>
-                        </a>
-                        <a href="#projects" class="text-lightest-slate hover:text-green text-xl group transition-all w-full p-3 rounded hover:bg-light-navy block">
-                            <span class="text-green font-mono block text-base mb-2 group-hover:translate-x-2 transition-transform">03.</span>
-                            <span class="group-hover:translate-x-2 transition-transform inline-block">Projects</span>
-                        </a>
-                        <a href="#contact" class="text-lightest-slate hover:text-green text-xl group transition-all w-full p-3 rounded hover:bg-light-navy block">
-                            <span class="text-green font-mono block text-base mb-2 group-hover:translate-x-2 transition-transform">04.</span>
-                            <span class="group-hover:translate-x-2 transition-transform inline-block">Contact</span>
-                        </a>
-                        <button id="mobile-theme-switcher" class="text-lightest-slate hover:text-green text-xl group transition-all w-full p-3 rounded hover:bg-light-navy text-left" aria-label="Switch Theme" data-current-theme="navy">
-                            <span class="text-green font-mono block text-base mb-2 group-hover:translate-x-2 transition-transform">05.</span>
-                            <span class="group-hover:translate-x-2 transition-transform inline-block">Switch Theme</span>
-                        </button>
-                        <a href="/resume.pdf" class="border-2 border-green text-green px-8 py-4 rounded text-xl hover:bg-green/10 transition-colors mt-4 w-full text-center block">Resume</a>
-                    </div>
-                </nav>
-                <button class="absolute top-6 right-6 text-green hover:text-green/80 transition-colors p-2" id="closeButton" aria-label="Close Menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                <a href="/resume.pdf" class="resume-button text-green px-4 py-2">Resume</a>
             </div>
         </div>
     </nav>
