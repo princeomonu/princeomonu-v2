@@ -210,12 +210,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePlaceholderImages(theme) {
         const placeholderImages = document.querySelectorAll('img[src*="placehold.co"]');
         placeholderImages.forEach(img => {
+            // Create new image to preload
+            const newImage = new Image();
             const bgColor = theme.colors.background.replace('#', '');
             const accentColor = theme.colors.accent.replace('#', '');
             const projectName = img.src.split('?text=')[1];
-            img.src = `https://placehold.co/600x400/${bgColor}/${accentColor}?text=${projectName}`;
+            const newSrc = `https://placehold.co/600x400/${bgColor}/${accentColor}?text=${projectName}`;
+
+            // Add fade out class
+            img.style.opacity = '0';
+
+            // When new image is loaded, update src and fade in
+            newImage.onload = () => {
+                img.src = newSrc;
+                img.style.opacity = '1';
+            };
+            newImage.src = newSrc;
         });
     }
+
+    // Add CSS for smooth image transitions
+    const style = document.createElement('style');
+    style.textContent = `
+        img[src*="placehold.co"] {
+            transition: opacity 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
 
     themeSwitchers.forEach(id => {
         const switcher = document.getElementById(id);

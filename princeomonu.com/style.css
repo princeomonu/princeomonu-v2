@@ -11,6 +11,39 @@
     --color-accent: #64ffda;
 }
 
+
+/* Add smooth transitions for theme changes */
+
+*,
+*::before,
+*::after {
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Background-specific transitions */
+
+body,
+.bg-navy,
+.bg-light-navy,
+.bg-lightest-navy,
+[class*='bg-'] {
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Elements that shouldn't transition */
+
+.cursor-glow,
+.typewriter-cursor,
+.fade-in-section,
+.fade-in-item,
+.nav-link::after,
+.project-tech,
+.scroll-to-top {
+    transition: none;
+}
+
 body {
     background-color: var(--color-background);
     color: var(--color-text);
@@ -105,7 +138,7 @@ body {
 /* Add project card animations */
 
 .project-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0);
     opacity: 0;
     transform: translateY(20px);
