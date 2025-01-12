@@ -48,6 +48,53 @@
         body {
             background-color: #0a192f;
             color: #8892b0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            visibility: hidden;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility, transform;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+        }
+        
+        .fade-in-section .fade-in-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition-delay: var(--delay, 0ms);
+        }
+        
+        .fade-in-section.is-visible .fade-in-item {
+            opacity: 1;
+            transform: none;
+        }
+        
+        .cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.08) 0%, rgba(100, 255, 218, 0.02) 40%, rgba(100, 255, 218, 0) 80%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+        }
+        
+        @media (hover: hover) {
+            .cursor-glow {
+                opacity: 1;
+            }
         }
         
         .nav-link {
@@ -67,6 +114,73 @@
         
         .nav-link:hover::after {
             width: 100%;
+        }
+        
+        .vertical-text {
+            writing-mode: vertical-rl;
+        }
+        
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: #64ffda;
+            margin-left: 2px;
+            animation: blink 1.2s infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        /* Add project card animations */
+        
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .project-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(100, 255, 218, 0.1);
+        }
+        
+        .project-card:hover .project-icon {
+            transform: rotate(-10deg);
+        }
+        
+        .project-card:hover .project-title {
+            color: #64ffda;
+        }
+        
+        .project-tech {
+            transition: all 0.2s ease;
+        }
+        
+        .project-tech:hover {
+            transform: translateY(-2px);
+            color: #64ffda;
+        }
+        
+        .featured-project {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition-delay: var(--delay, 0ms);
+        }
+        
+        .featured-project.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -128,23 +242,26 @@
 
     <main class="max-w-6xl mx-auto px-6 pt-8">
         <!-- Hero Section -->
-        <section class="min-h-screen flex flex-col justify-center -mt-16">
-            <h1 class="font-mono text-green mb-5">Hi, my name is</h1>
-            <h2 class="text-5xl md:text-7xl font-bold text-lightest-slate mb-4">Prince Omonu.</h2>
-            <h3 class="text-4xl md:text-6xl font-bold text-slate mb-8">Crafting Digital Experiences with Precision.</h3>
-            <p class="max-w-xl text-lg text-slate mb-12">
+        <section class="min-h-screen flex flex-col justify-center fade-in-section" style="padding-top: 60px;">
+            <h1 class="font-mono text-green mb-5 fade-in-item" style="--delay: 100ms">Hi, my name is</h1>
+            <h2 class="text-5xl md:text-7xl font-bold text-lightest-slate mb-4 fade-in-item" style="--delay: 200ms" id="typewriter"></h2>
+            <h3 class="text-4xl md:text-6xl font-bold text-slate mb-8 fade-in-item" style="--delay: 300ms">Crafting Digital Experiences with Precision.</h3>
+            <p class="max-w-xl text-lg text-slate mb-12 fade-in-item" style="--delay: 400ms">
                 I'm a software engineer focused on building accessible, user-friendly digital solutions at KadMap, where I make technology more inclusive and impactful.
             </p>
-            <a href="#projects" class="border border-green text-green px-8 py-4 rounded w-fit hover:bg-green/10 transition-colors">Check out my projects!</a>
+            <div class="flex flex-col md:flex-row gap-4 md:gap-6 fade-in-item" style="--delay: 500ms">
+                <a href="#projects" class="border border-green text-green px-8 py-4 rounded text-center hover:bg-green/10 transition-colors">Check out my projects!</a>
+                <a href="/resume.pdf" class="md:hidden border border-green text-green px-8 py-4 rounded text-center hover:bg-green/10 transition-colors">Resume</a>
+            </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-24">
-            <div class="flex items-center gap-4 mb-8">
+        <section id="about" class="py-24 fade-in-section">
+            <div class="flex items-center gap-4 mb-8 fade-in-item">
                 <h2 class="text-2xl md:text-3xl font-bold text-lightest-slate"><span class="text-green font-mono">01.</span> About Me</h2>
                 <div class="h-[1px] w-32 md:w-72 bg-lightest-navy"></div>
             </div>
-            <div class="grid md:grid-cols-3 gap-12">
+            <div class="grid md:grid-cols-3 gap-12 fade-in-item" style="--delay: 200ms">
                 <div class="md:col-span-2 space-y-4 text-slate order-2 md:order-1">
                     <p>
                         I'm a results-oriented software engineer and architect with expertise spanning machine learning, blockchain development, IoT systems, Linux, and enterprise architecture. My focus is on building robust, scalable systems while prioritizing developer experience
@@ -198,13 +315,12 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="py-24">
-            <div class="flex items-center gap-4 mb-12">
+        <section id="experience" class="py-24 fade-in-section">
+            <div class="flex items-center gap-4 mb-12 fade-in-item">
                 <h2 class="text-2xl md:text-3xl font-bold text-lightest-slate"><span class="text-green font-mono">02.</span> Where I've Worked</h2>
                 <div class="h-[1px] w-32 md:w-72 bg-lightest-navy"></div>
             </div>
-
-            <div class="relative">
+            <div class="relative fade-in-item" style="--delay: 200ms">
                 <!-- KadMap -->
                 <div class="mb-12">
                     <div class="flex flex-col md:flex-row md:items-center gap-2 mb-4">
@@ -355,16 +471,14 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24">
-            <div class="flex items-center gap-4 mb-12">
+        <section id="projects" class="py-24 fade-in-section">
+            <div class="flex items-center gap-4 mb-12 fade-in-item">
                 <h2 class="text-2xl md:text-3xl font-bold text-lightest-slate"><span class="text-green font-mono">03.</span> Some Things I've Built</h2>
                 <div class="h-[1px] w-32 md:w-72 bg-lightest-navy"></div>
             </div>
-
-            <!-- Featured Projects -->
-            <div class="space-y-24">
+            <div class="space-y-24 fade-in-item" style="--delay: 200ms">
                 <!-- KadMap -->
-                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center featured-project">
                     <div class="w-full md:col-span-7 relative order-1">
                         <div class="relative group">
                             <div class="relative rounded overflow-hidden">
@@ -395,7 +509,7 @@
                 </div>
 
                 <!-- Bravort LMS -->
-                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center featured-project">
                     <div class="w-full md:col-span-7 md:col-start-6 relative order-1">
                         <div class="relative group">
                             <div class="relative rounded overflow-hidden">
@@ -426,7 +540,7 @@
                 </div>
 
                 <!-- Fancy Token -->
-                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center featured-project">
                     <div class="w-full md:col-span-7 relative order-1">
                         <div class="relative group">
                             <div class="relative rounded overflow-hidden">
@@ -457,7 +571,7 @@
                 </div>
 
                 <!-- EmmyCares -->
-                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center featured-project">
                     <div class="w-full md:col-span-7 md:col-start-6 relative order-1">
                         <div class="relative group">
                             <div class="relative rounded overflow-hidden">
@@ -493,62 +607,62 @@
                 <h3 class="text-lightest-slate text-center text-2xl mb-12">Other Noteworthy Projects</h3>
                 <div class="grid md:grid-cols-3 gap-4">
                     <!-- GoChop -->
-                    <div class="bg-light-navy p-6 rounded">
+                    <div class="project-card bg-light-navy p-6 rounded">
                         <div class="flex justify-between items-start mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-green"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="project-icon w-10 h-10 text-green transition-transform duration-300"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                             <div class="flex gap-4">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300 hover:-translate-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                                 </a>
                             </div>
                         </div>
-                        <h4 class="text-lightest-slate text-xl mb-2">GoChop Food Delivery</h4>
+                        <h4 class="project-title text-lightest-slate text-xl mb-2 transition-colors duration-300">GoChop Food Delivery</h4>
                         <p class="text-light-slate mb-4">A food delivery platform with microservices architecture supporting payments, notifications, and messaging.</p>
                         <ul class="flex flex-wrap gap-2 font-mono text-xs text-slate">
-                            <li>Node.js</li>
-                            <li>Microservices</li>
-                            <li>React Native</li>
-                            <li>MongoDB</li>
+                            <li class="project-tech">Node.js</li>
+                            <li class="project-tech">Microservices</li>
+                            <li class="project-tech">React Native</li>
+                            <li class="project-tech">MongoDB</li>
                         </ul>
                     </div>
 
                     <!-- Afrihub -->
-                    <div class="bg-light-navy p-6 rounded">
+                    <div class="project-card bg-light-navy p-6 rounded">
                         <div class="flex justify-between items-start mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-green"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="project-icon w-10 h-10 text-green transition-transform duration-300"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                             <div class="flex gap-4">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300 hover:-translate-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                                 </a>
                             </div>
                         </div>
-                        <h4 class="text-lightest-slate text-xl mb-2">Afrihub Video Platform</h4>
+                        <h4 class="project-title text-lightest-slate text-xl mb-2 transition-colors duration-300">Afrihub Video Platform</h4>
                         <p class="text-light-slate mb-4">A video hosting platform using Google Cloud Storage CDN for seamless video delivery across Africa.</p>
                         <ul class="flex flex-wrap gap-2 font-mono text-xs text-slate">
-                            <li>Google Cloud</li>
-                            <li>Node.js</li>
-                            <li>React</li>
-                            <li>FFmpeg</li>
+                            <li class="project-tech">Google Cloud</li>
+                            <li class="project-tech">Node.js</li>
+                            <li class="project-tech">React</li>
+                            <li class="project-tech">FFmpeg</li>
                         </ul>
                     </div>
 
                     <!-- TeloHub -->
-                    <div class="bg-light-navy p-6 rounded">
+                    <div class="project-card bg-light-navy p-6 rounded">
                         <div class="flex justify-between items-start mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-green"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="project-icon w-10 h-10 text-green transition-transform duration-300"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                             <div class="flex gap-4">
-                                <a href="https://telohub.netlify.app" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green">
+                                <a href="https://telohub.netlify.app" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300 hover:-translate-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                                 </a>
                             </div>
                         </div>
-                        <h4 class="text-lightest-slate text-xl mb-2">TeloHub E-School</h4>
+                        <h4 class="project-title text-lightest-slate text-xl mb-2 transition-colors duration-300">TeloHub E-School</h4>
                         <p class="text-light-slate mb-4">An e-learning platform for software engineering education with interactive courses and hands-on projects.</p>
                         <ul class="flex flex-wrap gap-2 font-mono text-xs text-slate">
-                            <li>Next.js</li>
-                            <li>Node.js</li>
-                            <li>MongoDB</li>
-                            <li>WebRTC</li>
+                            <li class="project-tech">Next.js</li>
+                            <li class="project-tech">Node.js</li>
+                            <li class="project-tech">MongoDB</li>
+                            <li class="project-tech">WebRTC</li>
                         </ul>
                     </div>
                 </div>
@@ -556,14 +670,14 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 text-center">
+        <section id="contact" class="py-24 text-center fade-in-section">
             <div class="max-w-2xl mx-auto">
-                <p class="font-mono text-green mb-4">04. What's Next?</p>
-                <h2 class="text-4xl md:text-5xl font-bold text-lightest-slate mb-6">Get In Touch</h2>
-                <p class="text-slate mb-12">
+                <p class="font-mono text-green mb-4 fade-in-item" style="--delay: 100ms">04. What's Next?</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-lightest-slate mb-6 fade-in-item" style="--delay: 200ms">Get In Touch</h2>
+                <p class="text-slate mb-12 fade-in-item" style="--delay: 300ms">
                     I'm currently open to new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!
                 </p>
-                <div class="space-y-4">
+                <div class="space-y-4 fade-in-item" style="--delay: 400ms">
                     <a href="https://wa.me/+2348130190612" class="border-2 border-green text-green px-8 py-4 rounded inline-block hover:bg-green/10 transition-colors">
                         Say Hello
                     </a>
@@ -679,6 +793,131 @@
             } else {
                 nav.classList.remove('shadow-lg');
             }
+        });
+
+        // Typewriter effect
+        function typeWriter(element, text, speed = 150) {
+            let i = 0;
+            element.innerHTML = '<span></span><span class="typewriter-cursor"></span>';
+            const textSpan = element.querySelector('span');
+
+            function type() {
+                if (i < text.length) {
+                    textSpan.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    textSpan.textContent += '.'; // Add the period at the end
+                }
+            }
+            type();
+        }
+
+        // Start the typewriter effect when the page loads
+        window.addEventListener('load', () => {
+            const typewriterElement = document.getElementById('typewriter');
+            typeWriter(typewriterElement, 'Prince Omonu');
+        });
+
+        // Add the cursor glow element
+        const cursorGlow = document.createElement('div');
+        cursorGlow.className = 'cursor-glow';
+        document.body.appendChild(cursorGlow);
+
+        // Set default position under the tagline
+        function setDefaultGlowPosition() {
+            const tagline = document.querySelector('h3');
+            if (tagline) {
+                const rect = tagline.getBoundingClientRect();
+                cursorGlow.style.left = `${rect.left + rect.width / 2}px`;
+                cursorGlow.style.top = `${rect.top + rect.height / 2}px`;
+                cursorGlow.style.opacity = '1';
+            }
+        }
+
+        // Set initial position
+        window.addEventListener('load', setDefaultGlowPosition);
+        window.addEventListener('resize', setDefaultGlowPosition);
+
+        let isMouseMoving = false;
+        let mouseTimeout;
+
+        // Update cursor glow position only when mouse moves
+        document.addEventListener('mousemove', (e) => {
+            isMouseMoving = true;
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+
+            clearTimeout(mouseTimeout);
+            mouseTimeout = setTimeout(() => {
+                isMouseMoving = false;
+                setDefaultGlowPosition();
+            }, 2000); // Return to default position after 2 seconds of no movement
+        });
+
+        // Hide cursor glow when mouse leaves the window
+        document.addEventListener('mouseleave', () => {
+            cursorGlow.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            if (!isMouseMoving) {
+                setDefaultGlowPosition();
+            } else {
+                cursorGlow.style.opacity = '1';
+            }
+        });
+
+        // Intersection Observer for fade-in sections
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with fade-in-section class
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+            sections.forEach(section => observer.observe(section));
+        });
+
+        // Intersection Observer for projects
+        const projectObserverOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const projectObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, projectObserverOptions);
+
+        // Observe all project cards and featured projects
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectCards = document.querySelectorAll('.project-card');
+            const featuredProjects = document.querySelectorAll('.featured-project');
+
+            projectCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 100}ms`;
+                projectObserver.observe(card);
+            });
+
+            featuredProjects.forEach((project, index) => {
+                project.style.transitionDelay = `${index * 200}ms`;
+                projectObserver.observe(project);
+            });
         });
     </script>
 </body>
