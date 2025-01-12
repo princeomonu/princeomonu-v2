@@ -201,3 +201,45 @@ scrollToTopButton.addEventListener('click', () => {
 
 // Listen for scroll events
 window.addEventListener('scroll', toggleScrollButton);
+
+// Theme switcher functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const themeSwitchers = ['theme-switcher', 'mobile-theme-switcher'];
+
+    // Function to update placeholder images
+    function updatePlaceholderImages(theme) {
+        const placeholderImages = document.querySelectorAll('img[src*="placehold.co"]');
+        placeholderImages.forEach(img => {
+            const bgColor = theme.colors.background.replace('#', '');
+            const accentColor = theme.colors.accent.replace('#', '');
+            const projectName = img.src.split('?text=')[1];
+            img.src = `https://placehold.co/600x400/${bgColor}/${accentColor}?text=${projectName}`;
+        });
+    }
+
+    themeSwitchers.forEach(id => {
+        const switcher = document.getElementById(id);
+        if (switcher) {
+            switcher.addEventListener('click', () => {
+                const currentTheme = switcher.dataset.currentTheme;
+                const nextTheme = window.themeManager.getNextTheme(currentTheme);
+                window.themeManager.applyTheme(nextTheme);
+
+                // Update placeholder images with new theme colors
+                const theme = window.themeManager.themes[nextTheme];
+                updatePlaceholderImages(theme);
+
+                // Update all theme switchers
+                themeSwitchers.forEach(id => {
+                    const s = document.getElementById(id);
+                    if (s) s.dataset.currentTheme = nextTheme;
+                });
+            });
+        }
+    });
+
+    // Update placeholder images on initial load
+    const initialTheme = localStorage.getItem('selected-theme') || 'navy';
+    const theme = window.themeManager.themes[initialTheme];
+    updatePlaceholderImages(theme);
+});

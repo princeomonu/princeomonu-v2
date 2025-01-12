@@ -1,7 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+:root {
+    /* Theme variables will be set by JavaScript */
+    --color-background: #0a192f;
+    --color-light-background: #112240;
+    --color-lightest-background: #233554;
+    --color-text: #8892b0;
+    --color-light-text: #a8b2d1;
+    --color-lightest-text: #ccd6f6;
+    --color-white: #e6f1ff;
+    --color-accent: #64ffda;
+}
+
 body {
-    background-color: #0a192f;
-    color: #8892b0;
+    background-color: var(--color-background);
+    color: var(--color-text);
     position: relative;
     overflow-x: hidden;
 }
@@ -62,7 +74,7 @@ body {
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: #64ffda;
+    background-color: var(--color-accent);
     transition: width 0.3s ease;
 }
 
@@ -78,7 +90,7 @@ body {
     display: inline-block;
     width: 3px;
     height: 1em;
-    background-color: #64ffda;
+    background-color: var(--color-accent);
     margin-left: 2px;
     animation: blink 1.2s infinite;
 }
@@ -98,6 +110,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    background-color: var(--color-light-background);
 }
 
 .project-card.is-visible {
@@ -107,7 +120,7 @@ body {
 
 .project-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px -15px rgba(100, 255, 218, 0.1);
+    box-shadow: 0 20px 40px -15px rgba(var(--color-accent), 0.1);
 }
 
 .project-card:hover .project-icon {
@@ -115,7 +128,7 @@ body {
 }
 
 .project-card:hover .project-title {
-    color: #64ffda;
+    color: var(--color-accent);
 }
 
 .project-tech {
@@ -124,7 +137,7 @@ body {
 
 .project-tech:hover {
     transform: translateY(-2px);
-    color: #64ffda;
+    color: var(--color-accent);
 }
 
 .featured-project {
@@ -143,8 +156,8 @@ body {
     position: fixed;
     bottom: 2rem;
     right: calc(2rem + 50px);
-    background: #112240;
-    color: #64ffda;
+    background: var(--color-light-background);
+    color: var(--color-accent);
     width: 3rem;
     height: 3rem;
     border-radius: 0.5rem;
@@ -152,7 +165,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 1px solid #64ffda;
+    border: 1px solid var(--color-accent);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -171,6 +184,6 @@ body {
 }
 
 .scroll-to-top:hover {
-    background: rgba(100, 255, 218, 0.1);
+    background: rgba(var(--color-accent), 0.1);
     transform: translateY(-3px);
 }
