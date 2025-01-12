@@ -182,10 +182,51 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: calc(2rem + 50px);
+            background: #112240;
+            color: #64ffda;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #64ffda;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        @media (max-width: 1200px) {
+            .scroll-to-top {
+                right: 2rem;
+            }
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
     </style>
 </head>
 
 <body class="bg-navy min-h-screen font-sans">
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
     <nav class="fixed w-full bg-navy/90 backdrop-blur-sm z-[100] px-6 py-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="#" class="text-green font-mono text-xl relative z-[100]">P</a>
@@ -510,7 +551,7 @@
 
                 <!-- Bravort LMS -->
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center featured-project">
-                    <div class="w-full md:col-span-7 md:col-start-6 relative order-1">
+                    <div class="w-full md:col-span-7 md:col-start-6 relative order-1 md:order-2">
                         <div class="relative group">
                             <div class="relative rounded overflow-hidden">
                                 <a href="https://www.bravort.com" target="_blank" rel="noopener noreferrer" class="block">
@@ -520,16 +561,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full md:col-span-5 relative z-10 order-2">
-                        <div class="relative h-full flex flex-col justify-center items-end">
+                    <div class="w-full md:col-span-5 relative z-10 order-2 md:order-1">
+                        <div class="relative h-full flex flex-col justify-center md:pr-6">
                             <p class="font-mono text-green mb-2">Featured Project</p>
-                            <h3 class="text-2xl font-semibold text-lightest-slate mb-4 text-right">
+                            <h3 class="text-2xl font-semibold text-lightest-slate mb-4">
                                 <a href="https://www.bravort.com" target="_blank" rel="noopener noreferrer" class="hover:text-green">Bravort LMS</a>
                             </h3>
                             <div class="bg-light-navy p-6 rounded shadow-xl text-light-slate mb-4">
                                 A Learning Management System with advanced machine learning features for plagiarism detection and cheating prevention during online tests.
                             </div>
-                            <ul class="flex flex-wrap gap-3 font-mono text-sm text-slate justify-end">
+                            <ul class="flex flex-wrap gap-3 font-mono text-sm text-slate">
                                 <li>Python</li>
                                 <li>Machine Learning</li>
                                 <li>React</li>
@@ -572,7 +613,7 @@
 
                 <!-- EmmyCares -->
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-4 items-center featured-project">
-                    <div class="w-full md:col-span-7 md:col-start-6 relative order-1">
+                    <div class="w-full md:col-span-7 md:col-start-6 relative order-1 md:order-2">
                         <div class="relative group">
                             <div class="relative rounded overflow-hidden">
                                 <a href="https://emmycaresdataenterprise.com" target="_blank" rel="noopener noreferrer" class="block">
@@ -582,16 +623,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full md:col-span-5 relative z-10 order-2">
-                        <div class="relative h-full flex flex-col justify-center items-end">
+                    <div class="w-full md:col-span-5 relative z-10 order-2 md:order-1">
+                        <div class="relative h-full flex flex-col justify-center md:pr-6">
                             <p class="font-mono text-green mb-2">Featured Project</p>
-                            <h3 class="text-2xl font-semibold text-lightest-slate mb-4 text-right">
+                            <h3 class="text-2xl font-semibold text-lightest-slate mb-4">
                                 <a href="https://emmycaresdataenterprise.com" target="_blank" rel="noopener noreferrer" class="hover:text-green">EmmyCares VTU Platform</a>
                             </h3>
                             <div class="bg-light-navy p-6 rounded shadow-xl text-light-slate mb-4">
                                 A comprehensive VTU platform for airtime, data purchase, and bill payment services with automated payment processing.
                             </div>
-                            <ul class="flex flex-wrap gap-3 font-mono text-sm text-slate justify-end">
+                            <ul class="flex flex-wrap gap-3 font-mono text-sm text-slate">
                                 <li>Node.js</li>
                                 <li>Express</li>
                                 <li>React</li>
@@ -919,6 +960,29 @@
                 projectObserver.observe(project);
             });
         });
+
+        // Scroll to top functionality
+        const scrollToTopButton = document.getElementById('scrollToTop');
+
+        // Show button when page is scrolled
+        const toggleScrollButton = () => {
+            if (window.scrollY > 500) {
+                scrollToTopButton.classList.add('visible');
+            } else {
+                scrollToTopButton.classList.remove('visible');
+            }
+        };
+
+        // Scroll to top when button is clicked
+        scrollToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Listen for scroll events
+        window.addEventListener('scroll', toggleScrollButton);
     </script>
 </body>
 
